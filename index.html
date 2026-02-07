@@ -1,66 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>For Kanak 🌹</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>For Kanak 🌹</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      background: url("background.jpg") center/cover no-repeat;
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  height:100vh;
+  background:url("background.jpg") center/cover no-repeat;
+  font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+  overflow:hidden;
+}
 
-    .card {
-      background: rgba(255,255,255,0.9);
-      padding: 26px 22px;
-      border-radius: 20px;
-      text-align: center;
-      max-width: 320px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-    }
+/* BIG FLOWERS RAIN */
+.flower{
+  position:fixed;
+  top:-60px;
+  animation:fall linear infinite;
+  opacity:0.95;
+  pointer-events:none;
+}
+@keyframes fall{
+  0%{transform:translateY(-60px) rotate(0deg)}
+  100%{transform:translateY(110vh) rotate(360deg)}
+}
 
-    h1 {
-      color: #c2185b;
-      margin-bottom: 10px;
-    }
+/* OVERLAY GAME SCREEN */
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:10;
+}
+.card{
+  background:rgba(255,255,255,0.96);
+  padding:28px 24px;
+  border-radius:24px;
+  max-width:330px;
+  text-align:center;
+  box-shadow:0 20px 40px rgba(0,0,0,0.35);
+}
+h1{
+  color:#c2185b;
+  margin-bottom:10px;
+  font-size:24px;
+}
+p{
+  font-size:15px;
+  color:#333;
+  line-height:1.6;
+}
+button{
+  margin-top:16px;
+  padding:12px 26px;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(135deg,#e91e63,#ff6f91);
+  color:white;
+  font-size:15px;
+}
+.hidden{display:none}
 
-    p {
-      font-size: 15px;
-      color: #444;
-      margin-bottom: 15px;
-      line-height: 1.6;
-    }
-
-    audio {
-      width: 100%;
-      margin-top: 10px;
-    }
-  </style>
+/* MESSAGE AFTER TAP */
+.message{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:5;
+}
+.message-box{
+  background:rgba(255,255,255,0.9);
+  padding:30px 26px;
+  border-radius:26px;
+  max-width:340px;
+  text-align:center;
+  animation:pop 0.6s ease;
+}
+@keyframes pop{
+  from{transform:scale(0.7);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+.message-box h2{
+  color:#c2185b;
+  margin-bottom:10px;
+}
+</style>
 </head>
 
 <body>
 
+<!-- FLOWERS SCRIPT -->
+<script>
+for(let i=0;i<45;i++){
+  let f=document.createElement("div");
+  f.className="flower";
+  f.innerHTML="🌹";
+  f.style.left=Math.random()*100+"vw";
+  f.style.animationDuration=4+Math.random()*6+"s";
+  f.style.fontSize=30+Math.random()*25+"px"; // BIG FLOWERS
+  document.body.appendChild(f);
+}
+</script>
+
+<!-- TAP GAME OVERLAY -->
+<div class="overlay" id="overlay">
   <div class="card">
     <h1>Hey Kanak 🌹</h1>
     <p>
       Kabutar 🕊️<br>
-      Pehle play dabao…<br>
-      phir bas feel karo 💖<br><br>
+      Ek tap hai…<br>
+      aur ek chhota sa surprise 💖
+    </p>
+    <button onclick="reveal()">Tap to Open ✨</button>
+  </div>
+</div>
+
+<!-- FINAL MESSAGE -->
+<div class="message hidden" id="message">
+  <div class="message-box">
+    <h2>Happy Rose Day 🌹</h2>
+    <p>
+      Ye website bas ek bahana hai…<br>
+      asli baat ye hai ki<br>
+      tumhari smile duniya ki<br>
+      sabse pyaari cheez hai 💕<br><br>
       — Saksham
     </p>
-
-    <!-- NATIVE AUDIO CONTROLS -->
-    <audio controls playsinline>
-      <source src="shubh-love.mp3" type="audio/mpeg">
-      Your browser does not support audio.
-    </audio>
   </div>
+</div>
+
+<script>
+function reveal(){
+  document.getElementById("overlay").classList.add("hidden");
+  document.getElementById("message").classList.remove("hidden");
+}
+</script>
 
 </body>
 </html>
