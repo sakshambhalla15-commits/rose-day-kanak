@@ -6,7 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{box-sizing:border-box}
 body{
   margin:0;
   height:100vh;
@@ -15,132 +14,175 @@ body{
   overflow:hidden;
 }
 
-/* BIG FLOWERS RAIN */
-.flower{
-  position:fixed;
-  top:-60px;
-  animation:fall linear infinite;
-  opacity:0.95;
-  pointer-events:none;
-}
-@keyframes fall{
-  0%{transform:translateY(-60px) rotate(0deg)}
-  100%{transform:translateY(110vh) rotate(360deg)}
-}
-
-/* OVERLAY GAME SCREEN */
+/* dark overlay */
 .overlay{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,0.6);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:10;
+  background:rgba(0,0,0,0.45);
 }
+
+/* main card */
 .card{
-  background:rgba(255,255,255,0.96);
+  position:relative;
+  z-index:10;
+  max-width:330px;
+  margin:auto;
+  top:50%;
+  transform:translateY(-50%);
+  background:rgba(255,255,255,0.93);
   padding:28px 24px;
   border-radius:24px;
-  max-width:330px;
   text-align:center;
-  box-shadow:0 20px 40px rgba(0,0,0,0.35);
+  box-shadow:0 20px 40px rgba(0,0,0,0.4);
+  animation:breathe 4s ease-in-out infinite;
 }
+
+@keyframes breathe{
+  0%,100%{transform:translateY(-50%) scale(1);}
+  50%{transform:translateY(-50%) scale(1.03);}
+}
+
+/* heading glow */
 h1{
   color:#c2185b;
   margin-bottom:10px;
-  font-size:24px;
+  animation:glow 2s ease-in-out infinite alternate;
 }
+
+@keyframes glow{
+  from{text-shadow:0 0 5px #ff5f9e;}
+  to{text-shadow:0 0 15px #ff2f7a;}
+}
+
 p{
   font-size:15px;
-  color:#333;
+  color:#444;
   line-height:1.6;
 }
-button{
-  margin-top:16px;
-  padding:12px 26px;
-  border:none;
-  border-radius:30px;
-  background:linear-gradient(135deg,#e91e63,#ff6f91);
-  color:white;
-  font-size:15px;
-}
-.hidden{display:none}
 
-/* MESSAGE AFTER TAP */
-.message{
+/* button */
+button{
+  margin-top:14px;
+  padding:10px 20px;
+  border:none;
+  border-radius:20px;
+  background:#ff2f7a;
+  color:white;
+  font-size:14px;
+  cursor:pointer;
+  box-shadow:0 5px 15px rgba(0,0,0,0.3);
+}
+
+button:hover{
+  background:#e91e63;
+}
+
+/* falling roses */
+.rose{
   position:fixed;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:5;
+  top:-50px;
+  font-size:22px;
+  animation:fall linear infinite;
+  z-index:2;
 }
-.message-box{
-  background:rgba(255,255,255,0.9);
-  padding:30px 26px;
-  border-radius:26px;
-  max-width:340px;
+
+@keyframes fall{
+  to{
+    transform:translateY(110vh) rotate(360deg);
+  }
+}
+
+/* floating hearts */
+.heart{
+  position:fixed;
+  bottom:-20px;
+  font-size:18px;
+  animation:floatUp linear infinite;
+  z-index:3;
+}
+
+@keyframes floatUp{
+  to{
+    transform:translateY(-110vh) scale(1.5);
+    opacity:0;
+  }
+}
+
+/* bottom vibe text */
+.bg-text{
+  position:fixed;
+  bottom:12px;
+  width:100%;
   text-align:center;
-  animation:pop 0.6s ease;
-}
-@keyframes pop{
-  from{transform:scale(0.7);opacity:0}
-  to{transform:scale(1);opacity:1}
-}
-.message-box h2{
-  color:#c2185b;
-  margin-bottom:10px;
+  color:white;
+  font-size:13px;
+  opacity:0.85;
+  z-index:4;
 }
 </style>
 </head>
 
 <body>
 
-<!-- FLOWERS SCRIPT -->
+<div class="overlay"></div>
+
+<div class="card">
+  <h1>Hey Kanak 🌹</h1>
+
+  <p id="msg">
+    Kabutar 🕊️<br>
+    Aaj Rose Day hai 🌹<br>
+    aur tum smile karti ho to<br>
+    din khud special ban jata hai ✨
+    <br><br>
+    — Saksham
+  </p>
+
+  <button onclick="changeMsg()">Tap for Surprise 💖</button>
+</div>
+
+<div class="bg-text">
+  🌹 Love • Smiles • Games • Late Night Talks • Us 🌹
+</div>
+
 <script>
-for(let i=0;i<45;i++){
-  let f=document.createElement("div");
-  f.className="flower";
-  f.innerHTML="🌹";
-  f.style.left=Math.random()*100+"vw";
-  f.style.animationDuration=4+Math.random()*6+"s";
-  f.style.fontSize=30+Math.random()*25+"px"; // BIG FLOWERS
-  document.body.appendChild(f);
+/* rose rain */
+function createRose(){
+  const r=document.createElement("div");
+  r.className="rose";
+  r.innerText="🌹";
+  r.style.left=Math.random()*100+"vw";
+  r.style.animationDuration=3+Math.random()*4+"s";
+  document.body.appendChild(r);
+  setTimeout(()=>r.remove(),7000);
 }
-</script>
+setInterval(createRose,280);
 
-<!-- TAP GAME OVERLAY -->
-<div class="overlay" id="overlay">
-  <div class="card">
-    <h1>Hey Kanak 🌹</h1>
-    <p>
-      Kabutar 🕊️<br>
-      Ek tap hai…<br>
-      aur ek chhota sa surprise 💖
-    </p>
-    <button onclick="reveal()">Tap to Open ✨</button>
-  </div>
-</div>
+/* floating hearts */
+function createHeart(){
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerText="❤️";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=4+Math.random()*3+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),7000);
+}
+setInterval(createHeart,600);
 
-<!-- FINAL MESSAGE -->
-<div class="message hidden" id="message">
-  <div class="message-box">
-    <h2>Happy Rose Day 🌹</h2>
-    <p>
-      Ye website bas ek bahana hai…<br>
-      asli baat ye hai ki<br>
-      tumhari smile duniya ki<br>
-      sabse pyaari cheez hai 💕<br><br>
-      — Saksham
-    </p>
-  </div>
-</div>
+/* surprise messages */
+const messages=[
+  "Tumhari ek smile poora din bana deti hai 💫",
+  "Agar rose tum hoti to kabhi murjhati hi nahi 🌹",
+  "Tum ho to sab simple cheezein special lagti hain 💖",
+  "Ye website nahi, thoda sa dil hai ❤️",
+  "Bas itna hi kehna tha… tum bohot cute ho 😌"
+];
 
-<script>
-function reveal(){
-  document.getElementById("overlay").classList.add("hidden");
-  document.getElementById("message").classList.remove("hidden");
+let i=0;
+function changeMsg(){
+  document.getElementById("msg").innerHTML=messages[i];
+  i=(i+1)%messages.length;
 }
 </script>
 
