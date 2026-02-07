@@ -2,94 +2,130 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Rose Day for Kanak 🌹</title>
+  <title>For Kanak 🌹</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
     body {
       margin: 0;
       padding: 0;
       height: 100vh;
-      background: url("background.jpg") no-repeat center center/cover;
+      background: url("background.jpg") center/cover no-repeat;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Segoe UI', sans-serif;
       overflow: hidden;
     }
 
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
     .card {
-      background: rgba(255, 255, 255, 0.85);
-      padding: 30px 35px;
-      border-radius: 20px;
+      background: white;
+      padding: 28px 24px;
+      border-radius: 22px;
       text-align: center;
-      max-width: 350px;
+      max-width: 320px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-      animation: fadeIn 2s ease;
+      animation: pop 0.8s ease;
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.85); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
 
     h1 {
+      margin: 0 0 10px;
       color: #c2185b;
-      margin-bottom: 10px;
+      font-size: 26px;
     }
 
     p {
-      font-size: 16px;
       color: #444;
-      margin-bottom: 20px;
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 18px;
     }
 
     button {
-      background: #e91e63;
       border: none;
-      color: white;
       padding: 12px 22px;
-      font-size: 16px;
-      border-radius: 30px;
+      border-radius: 999px;
+      background: #e91e63;
+      color: white;
+      font-size: 15px;
       cursor: pointer;
-      transition: 0.3s;
     }
 
-    button:hover {
-      background: #c2185b;
-      transform: scale(1.05);
+    button:active {
+      transform: scale(0.96);
     }
 
-    .hidden {
+    .main {
+      background: rgba(255,255,255,0.85);
+      padding: 26px 24px;
+      border-radius: 22px;
+      text-align: center;
+      max-width: 340px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
       display: none;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.8); }
-      to { opacity: 1; transform: scale(1); }
     }
   </style>
 </head>
 
 <body>
 
-  <div class="card">
-    <h1>Happy Rose Day 🌹</h1>
-    <p>
-      Kanak 💖 <br><br>
-      Kabutar, ye chhota sa surprise sirf tumhare liye.  
-      Click karo… aur bas feel karo.
-    </p>
-
-    <button id="playBtn">Click here Kabutar 🕊️💗</button>
+  <!-- TAP TO PLAY OVERLAY -->
+  <div class="overlay" id="startScreen">
+    <div class="card">
+      <h1>Hey Kanak 🌹</h1>
+      <p>
+        Kabutar 🕊️<br>
+        Tap this once…<br>
+        music + surprise start ho jayega 💖
+      </p>
+      <button id="startBtn">Tap to Play 🎶</button>
+    </div>
   </div>
 
-  <audio id="bgMusic">
+  <!-- MAIN CONTENT -->
+  <div class="main" id="mainContent">
+    <h1>Happy Rose Day 🌹</h1>
+    <p>
+      Ye chhota sa surprise sirf tumhare liye.<br>
+      No pressure, no expectations —<br>
+      bas ek honest smile ke liye 😊<br><br>
+      — Saksham
+    </p>
+  </div>
+
+  <!-- AUDIO -->
+  <audio id="bgMusic" playsinline>
     <source src="shubh-love.mp3" type="audio/mpeg">
   </audio>
 
   <script>
-    const btn = document.getElementById("playBtn");
+    const btn = document.getElementById("startBtn");
     const music = document.getElementById("bgMusic");
+    const overlay = document.getElementById("startScreen");
+    const main = document.getElementById("mainContent");
 
     btn.addEventListener("click", () => {
-      music.play();
-      btn.innerText = "Playing for you 💖🎶";
-      btn.disabled = true;
+      music.play().then(() => {
+        overlay.style.display = "none";
+        main.style.display = "block";
+      }).catch(() => {
+        alert("Please tap once again ❤️");
+      });
     });
   </script>
 
