@@ -1,119 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>For Kanak 🌹</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Rose Day for Kanak 🌹</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: url("background.jpg") no-repeat center center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
+    .card {
+      background: rgba(255, 255, 255, 0.85);
+      padding: 30px 35px;
+      border-radius: 20px;
+      text-align: center;
+      max-width: 350px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      animation: fadeIn 2s ease;
+    }
 
-body{
-  font-family:'Poppins',sans-serif;
-  height:100vh;
-  background:url('background.jpg') center/cover no-repeat;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-}
+    h1 {
+      color: #c2185b;
+      margin-bottom: 10px;
+    }
 
-.overlay{
-  background:rgba(0,0,0,0.55);
-  padding:40px;
-  border-radius:25px;
-  text-align:center;
-  color:white;
-  max-width:700px;
-}
+    p {
+      font-size: 16px;
+      color: #444;
+      margin-bottom: 20px;
+    }
 
-h1{
-  font-family:'Dancing Script',cursive;
-  font-size:3rem;
-  margin-bottom:20px;
-}
+    button {
+      background: #e91e63;
+      border: none;
+      color: white;
+      padding: 12px 22px;
+      font-size: 16px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
 
-p{
-  font-size:1.2rem;
-  line-height:1.8;
-}
+    button:hover {
+      background: #c2185b;
+      transform: scale(1.05);
+    }
 
-#gameBox{
-  margin-top:30px;
-  font-size:1.4rem;
-  cursor:pointer;
-  padding:20px;
-  border-radius:20px;
-  background:rgba(255,255,255,0.15);
-  transition:0.3s;
-}
+    .hidden {
+      display: none;
+    }
 
-#gameBox:hover{
-  background:rgba(255,255,255,0.25);
-}
-
-.heart{
-  position:absolute;
-  font-size:26px;
-  animation:float 1s ease forwards;
-}
-@keyframes float{
-  to{transform:translateY(-120px);opacity:0}
-}
-</style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- 🎵 Music -->
-<audio id="bgMusic" loop>
-  <source src="shubh-love.mp3" type="audio/mpeg">
-</audio>
+  <div class="card">
+    <h1>Happy Rose Day 🌹</h1>
+    <p>
+      Kanak 💖 <br><br>
+      Kabutar, ye chhota sa surprise sirf tumhare liye.  
+      Click karo… aur bas feel karo.
+    </p>
 
-<div class="overlay">
-  <h1>Hey Kanak 🌹</h1>
-  <p>
-    Ye website thodi si game jaisi hai…<br>
-    bas neeche wale box pe click karti jao 💖
-  </p>
+    <button id="playBtn">Click here Kabutar 🕊️💗</button>
+  </div>
 
-  <div id="gameBox">🌹 Click to unlock 🌹</div>
-</div>
+  <audio id="bgMusic">
+    <source src="shubh-love.mp3" type="audio/mpeg">
+  </audio>
 
-<script>
-let step = 0;
-const box = document.getElementById("gameBox");
-const music = document.getElementById("bgMusic");
+  <script>
+    const btn = document.getElementById("playBtn");
+    const music = document.getElementById("bgMusic");
 
-const messages = [
-  "Tumhari smile bina bole mood thik kar deti hai 😊",
-  "Kabutar 🕊️ naam mazaak me rakha tha, par feeling serious hai 💖",
-  "Kuch log bas pasand nahi hote… woh important ho jaate hain 🌸",
-  "Agar yahan tak pahunchi ho, toh bas itna kehna tha…",
-  "Tum pasand ho, aur kaafi zyada ho 🌹 — Saksham"
-];
-
-box.addEventListener("click", () => {
-  music.play();
-  if(step < messages.length){
-    box.innerHTML = messages[step];
-    step++;
-
-    // heart effect
-    let h = document.createElement("div");
-    h.className="heart";
-    h.innerHTML="💖";
-    h.style.left=Math.random()*100+"vw";
-    h.style.top="70vh";
-    document.body.appendChild(h);
-    setTimeout(()=>h.remove(),1000);
-  } else {
-    box.innerHTML="🌹 Rose Day Complete 🌹";
-  }
-});
-</script>
+    btn.addEventListener("click", () => {
+      music.play();
+      btn.innerText = "Playing for you 💖🎶";
+      btn.disabled = true;
+    });
+  </script>
 
 </body>
 </html>
