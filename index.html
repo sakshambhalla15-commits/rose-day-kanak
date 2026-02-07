@@ -2,53 +2,46 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>For Kanak 🌹</title>
+<title>Hey Kanak 🌹</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body{
+*{
   margin:0;
-  height:100vh;
-  background:url("background.jpg") center/cover no-repeat;
+  padding:0;
+  box-sizing:border-box;
   font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+}
+
+body{
+  height:100vh;
+  background:url("background.jpg") center/cover no-repeat fixed;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   overflow:hidden;
 }
 
-.overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.5);
-}
-
+/* CARD */
 .card{
-  position:relative;
-  z-index:5;
-  max-width:340px;
-  margin:auto;
-  top:50%;
-  transform:translateY(-50%);
-  background:rgba(255,255,255,0.95);
+  background:rgba(255,255,255,0.88);
   padding:28px 24px;
-  border-radius:26px;
+  border-radius:22px;
   text-align:center;
-  box-shadow:0 25px 45px rgba(0,0,0,0.4);
+  max-width:330px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.35);
+  animation:fadeIn 1.2s ease;
+  z-index:5;
 }
 
 h1{
-  color:#c2185b;
-  margin-bottom:8px;
+  color:#d81b60;
+  margin-bottom:12px;
 }
 
-#status{
-  font-size:13px;
-  color:#888;
-  margin-bottom:10px;
-}
-
-#msg{
-  min-height:90px;
-  font-size:15px;
+p{
   color:#444;
+  font-size:15px;
   line-height:1.6;
 }
 
@@ -56,121 +49,98 @@ button{
   margin-top:18px;
   padding:12px 22px;
   border:none;
-  border-radius:22px;
-  background:#ff2f7a;
+  border-radius:25px;
+  background:#d81b60;
   color:white;
-  font-size:14px;
+  font-size:15px;
   cursor:pointer;
-  position:relative;
-  z-index:10;
+  box-shadow:0 8px 18px rgba(216,27,96,0.4);
 }
 
-button:active{
-  transform:scale(0.95);
+button:hover{
+  transform:scale(1.05);
 }
 
-/* big rose animation */
-.big-rose{
-  position:fixed;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:120px;
-  z-index:20;
-  animation:pop 1.5s ease forwards;
+/* MESSAGE */
+.message{
+  display:none;
+  margin-top:14px;
+  animation:fadeIn 1s ease;
 }
 
-@keyframes pop{
-  0%{transform:scale(0);opacity:0;}
-  40%{transform:scale(1.3);opacity:1;}
-  100%{transform:scale(1);opacity:0;}
-}
-
-/* falling roses */
+/* BIG ROSE */
 .rose{
+  font-size:80px;
+  animation:pulse 1.4s infinite;
+}
+
+/* FLOWERS FALL */
+.flower{
   position:fixed;
-  top:-50px;
-  font-size:22px;
+  top:-40px;
+  font-size:26px;
   animation:fall linear infinite;
-  z-index:2;
+  z-index:1;
 }
 
 @keyframes fall{
-  to{transform:translateY(110vh) rotate(360deg);}
+  to{
+    transform:translateY(110vh) rotate(360deg);
+  }
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:scale(0.9);}
+  to{opacity:1; transform:scale(1);}
+}
+
+@keyframes pulse{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.15);}
 }
 </style>
 </head>
 
 <body>
 
-<div class="overlay"></div>
-
 <div class="card">
   <h1>Hey Kanak 🌹</h1>
+  <p>
+    Kabutar 🕊️<br>
+    Ek chhota sa message hai<br>
+    jo dil se likha gaya hai 💖
+  </p>
 
-  <div id="status">Tap the rose to start 💗</div>
+  <button onclick="showSurprise()">Tap for a Smile 💌</button>
 
-  <p id="msg"></p>
-
-  <button onclick="openRose()">Tap to Open a Rose 🌹</button>
+  <div class="message" id="msg">
+    <p>
+      Har rose tumhari smile jaisa ho 🌹<br>
+      Har moment tumhare saath special lage ✨<br>
+      Aaj nahi, hamesha ❤️
+    </p>
+    <div class="rose">🌹</div>
+    <p>— Saksham</p>
+  </div>
 </div>
 
 <script>
-const lines=[
-  "Message started… 💫",
-  "Tumhari smile ka effect bohot strong hai 😌",
-  "Rose Day sirf ek bahana hai 🌹",
-  "Tum ho to har din special lagta hai 💖",
-  "Bas itna hi kehna tha…",
-  "Tum bohot cute ho ❤️"
-];
+function showSurprise(){
+  document.getElementById("msg").style.display="block";
+  createFlowers();
+}
 
-let lineIndex=0;
-let charIndex=0;
-
-function typeLine(){
-  if(charIndex < lines[lineIndex].length){
-    document.getElementById("msg").innerHTML += lines[lineIndex].charAt(charIndex);
-    charIndex++;
-    setTimeout(typeLine,40);
-  }else{
-    document.getElementById("msg").innerHTML += "<br><br>";
-    charIndex=0;
-    lineIndex++;
-    if(lineIndex < lines.length){
-      setTimeout(typeLine,400);
-    }else{
-      document.getElementById("status").innerText="Message ended 🌹";
-    }
+function createFlowers(){
+  for(let i=0;i<25;i++){
+    let f=document.createElement("div");
+    f.className="flower";
+    f.innerHTML=["🌸","🌹","🌺","💐"][Math.floor(Math.random()*4)];
+    f.style.left=Math.random()*100+"vw";
+    f.style.animationDuration=4+Math.random()*4+"s";
+    document.body.appendChild(f);
+    setTimeout(()=>f.remove(),9000);
   }
 }
-
-function openRose(){
-  document.getElementById("msg").innerHTML="";
-  document.getElementById("status").innerText="Opening rose… 🌹";
-  lineIndex=0;
-  charIndex=0;
-
-  const r=document.createElement("div");
-  r.className="big-rose";
-  r.innerText="🌹";
-  document.body.appendChild(r);
-  setTimeout(()=>r.remove(),1500);
-
-  setTimeout(typeLine,800);
-}
-
-/* background rose rain */
-setInterval(()=>{
-  const r=document.createElement("div");
-  r.className="rose";
-  r.innerText="🌹";
-  r.style.left=Math.random()*100+"vw";
-  r.style.animationDuration=3+Math.random()*4+"s";
-  document.body.appendChild(r);
-  setTimeout(()=>r.remove(),7000);
-},300);
 </script>
 
 </body>
