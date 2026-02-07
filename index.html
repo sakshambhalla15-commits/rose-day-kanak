@@ -8,126 +8,59 @@
   <style>
     body {
       margin: 0;
-      padding: 0;
       height: 100vh;
       background: url("background.jpg") center/cover no-repeat;
       font-family: -apple-system, BlinkMacSystemFont, sans-serif;
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
-    }
-
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.6);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 10;
     }
 
     .card {
-      background: white;
-      padding: 28px 24px;
-      border-radius: 22px;
+      background: rgba(255,255,255,0.9);
+      padding: 26px 22px;
+      border-radius: 20px;
       text-align: center;
       max-width: 320px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-      animation: pop 0.8s ease;
-    }
-
-    @keyframes pop {
-      from { transform: scale(0.85); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
+      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
     }
 
     h1 {
-      margin: 0 0 10px;
       color: #c2185b;
-      font-size: 26px;
+      margin-bottom: 10px;
     }
 
     p {
+      font-size: 15px;
       color: #444;
-      font-size: 15px;
+      margin-bottom: 15px;
       line-height: 1.6;
-      margin-bottom: 18px;
     }
 
-    button {
-      border: none;
-      padding: 12px 22px;
-      border-radius: 999px;
-      background: #e91e63;
-      color: white;
-      font-size: 15px;
-      cursor: pointer;
-    }
-
-    button:active {
-      transform: scale(0.96);
-    }
-
-    .main {
-      background: rgba(255,255,255,0.85);
-      padding: 26px 24px;
-      border-radius: 22px;
-      text-align: center;
-      max-width: 340px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-      display: none;
+    audio {
+      width: 100%;
+      margin-top: 10px;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- TAP TO PLAY OVERLAY -->
-  <div class="overlay" id="startScreen">
-    <div class="card">
-      <h1>Hey Kanak 🌹</h1>
-      <p>
-        Kabutar 🕊️<br>
-        Tap this once…<br>
-        music + surprise start ho jayega 💖
-      </p>
-      <button id="startBtn">Tap to Play 🎶</button>
-    </div>
-  </div>
-
-  <!-- MAIN CONTENT -->
-  <div class="main" id="mainContent">
-    <h1>Happy Rose Day 🌹</h1>
+  <div class="card">
+    <h1>Hey Kanak 🌹</h1>
     <p>
-      Ye chhota sa surprise sirf tumhare liye.<br>
-      No pressure, no expectations —<br>
-      bas ek honest smile ke liye 😊<br><br>
+      Kabutar 🕊️<br>
+      Pehle play dabao…<br>
+      phir bas feel karo 💖<br><br>
       — Saksham
     </p>
+
+    <!-- NATIVE AUDIO CONTROLS -->
+    <audio controls playsinline>
+      <source src="shubh-love.mp3" type="audio/mpeg">
+      Your browser does not support audio.
+    </audio>
   </div>
-
-  <!-- AUDIO -->
-  <audio id="bgMusic" playsinline>
-    <source src="shubh-love.mp3" type="audio/mpeg">
-  </audio>
-
-  <script>
-    const btn = document.getElementById("startBtn");
-    const music = document.getElementById("bgMusic");
-    const overlay = document.getElementById("startScreen");
-    const main = document.getElementById("mainContent");
-
-    btn.addEventListener("click", () => {
-      music.play().then(() => {
-        overlay.style.display = "none";
-        main.style.display = "block";
-      }).catch(() => {
-        alert("Please tap once again ❤️");
-      });
-    });
-  </script>
 
 </body>
 </html>
