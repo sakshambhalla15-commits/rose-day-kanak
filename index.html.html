@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Kanak 🌹</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:'Poppins',sans-serif;
+  height:100vh;
+  background:url('background.jpg') center/cover no-repeat;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+.overlay{
+  background:rgba(0,0,0,0.55);
+  padding:40px;
+  border-radius:25px;
+  text-align:center;
+  color:white;
+  max-width:700px;
+}
+
+h1{
+  font-family:'Dancing Script',cursive;
+  font-size:3rem;
+  margin-bottom:20px;
+}
+
+p{
+  font-size:1.2rem;
+  line-height:1.8;
+}
+
+#gameBox{
+  margin-top:30px;
+  font-size:1.4rem;
+  cursor:pointer;
+  padding:20px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.15);
+  transition:0.3s;
+}
+
+#gameBox:hover{
+  background:rgba(255,255,255,0.25);
+}
+
+.heart{
+  position:absolute;
+  font-size:26px;
+  animation:float 1s ease forwards;
+}
+@keyframes float{
+  to{transform:translateY(-120px);opacity:0}
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 Music -->
+<audio id="bgMusic" loop>
+  <source src="shubh-love.mp3" type="audio/mpeg">
+</audio>
+
+<div class="overlay">
+  <h1>Hey Kanak 🌹</h1>
+  <p>
+    Ye website thodi si game jaisi hai…<br>
+    bas neeche wale box pe click karti jao 💖
+  </p>
+
+  <div id="gameBox">🌹 Click to unlock 🌹</div>
+</div>
+
+<script>
+let step = 0;
+const box = document.getElementById("gameBox");
+const music = document.getElementById("bgMusic");
+
+const messages = [
+  "Tumhari smile bina bole mood thik kar deti hai 😊",
+  "Kabutar 🕊️ naam mazaak me rakha tha, par feeling serious hai 💖",
+  "Kuch log bas pasand nahi hote… woh important ho jaate hain 🌸",
+  "Agar yahan tak pahunchi ho, toh bas itna kehna tha…",
+  "Tum pasand ho, aur kaafi zyada ho 🌹 — Saksham"
+];
+
+box.addEventListener("click", () => {
+  music.play();
+  if(step < messages.length){
+    box.innerHTML = messages[step];
+    step++;
+
+    // heart effect
+    let h = document.createElement("div");
+    h.className="heart";
+    h.innerHTML="💖";
+    h.style.left=Math.random()*100+"vw";
+    h.style.top="70vh";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),1000);
+  } else {
+    box.innerHTML="🌹 Rose Day Complete 🌹";
+  }
+});
+</script>
+
+</body>
+</html>
